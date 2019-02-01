@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="org.droidtv.mychoice"
+	android:sharedUserId="android.uid.system"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="23" />
+	<uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+	<uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="org.droidtv.providers.tv.favorite.WRITE_FAVORITE_DATA" />
+    <uses-permission android:name="org.droidtv.providers.tv.favorite.READ_FAVORITE_DATA" />
+    <uses-permission android:name="com.android.providers.tv.permission.WRITE_EPG_DATA" />
+    <uses-permission android:name="com.android.providers.tv.permission.READ_EPG_DATA" />
+    <uses-permission android:name="com.android.providers.tv.permission.ACCESS_ALL_EPG_DATA" />
+    <uses-permission android:name="org.droidtv.tv.smarttv.permission.provider.IPEPG_READ" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE" />
+    <uses-permission android:name="android.permission.SET_TIME" />
+    <uses-permission android:name="android.permission.SET_TIME_ZONE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="org.droidtv.tv.permission.BASIC" />
+    <uses-permission
+        android:name="org.droidtv.tv.permission.FRONTEND_CONTROL"
+        android:protectionLevel="dangerous" />
+    <uses-permission android:name="org.droidtv.tv.permission.TV_CONTROL" />
+    <uses-permission android:name="org.droidtv.tv.permission.provider.CHANNEL_READ" />
+    <uses-permission android:name="org.droidtv.tv.permission.provider.CHANNEL_WRITE" />
+    <uses-permission android:name="org.droidtv.tv.permission.USER_SETTING_ACCESS" />
+    <uses-permission android:name="android.permission.ALL_EPG_DATA" />
+    <uses-permission
+        android:name="org.droidtv.tv.permission.provider.DEVICE_READ"
+        android:protectionLevel="dangerous" />
+    <uses-permission
+        android:name="org.droidtv.tv.permission.provider.DEVICE_WRITE"
+        android:protectionLevel="dangerous" />
+    <uses-permission android:name="android.permission.MODIFY_PARENTAL_CONTROLS" />
+    <uses-permission android:name="android.permission.SHUTDOWN" />
+    <uses-permission android:name="android.permission.REBOOT" />
+    <uses-permission android:name="android.permission.DEVICE_POWER" />
+    <uses-permission android:name="org.droidtv.providers.tv.frequency.READ_FREQUENCY_DATA" />
+    <uses-permission android:name="org.droidtv.providers.tv.frequency.WRITE_FREQUENCY_DATA" />
+    <uses-permission android:name="org.droidtv.providers.tv.favorite.WRITE_FAVORITE_DATA" />
+    <uses-permission android:name="org.droidtv.providers.tv.favorite.READ_FAVORITE_DATA" />
+    <uses-permission android:name="org.droidtv.tv.permission.TPV_APP_ACCESS" />
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <!-- <activity
+            android:name=".MyChoiceActivity"
+            android:label="@string/app_name"
+            android:theme="@style/epgTransparentTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN_MYCHOICE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity> -->
+        <activity
+            android:name=".MyChoiceActivity"
+            android:label="@string/app_name"
+            android:theme="@style/epgTransparentTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN_MYCHOICE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+		<activity
+            android:name=".MyChoicePinDialog"
+            android:label="@org.droidtv.ui.strings:string/HTV_MAIN_MYCHOICE"
+            android:excludeFromRecents="true" 
+			android:theme="@style/transparent_theme" >
+            <intent-filter>
+                <action android:name="org.droidtv.intent.action.MYCHOICE_PIN_DIALOG" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name=".MyChoiceReceiver"
+		android:exported="true"
+		android:directBootAware="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                </intent-filter>
+        </receiver>
+        <service android:name=".MyChoiceService"
+		android:exported="true"
+		android:permission="org.droidtv.mychoice.MYCHOICE"
+		android:directBootAware="true" >
+            <intent-filter>
+            	<action android:name="org.droidtv.mychoice.MyChoiceService" />    
+            </intent-filter>
+        </service>
+        <service android:name=".MyChoiceInVokedService"
+            	android:exported="true"
+            	android:permission="org.droidtv.mychoice.MYCHOICE_FOR_INVOKE" >
+            <intent-filter>
+            	<action android:name="org.droidtv.mychoice.MyChoiceInVokedService" />    
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>
+
+

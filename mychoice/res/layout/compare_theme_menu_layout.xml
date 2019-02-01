@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="600dp"
+    android:layout_height="380dp"
+    android:orientation="vertical"
+    android:background="@color/dialog_background"
+    android:weightSum="1" >
+
+    <TextView
+        android:id="@+id/compare_theme_title_text"
+        style="@style/compare_theme_menu_title_style"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/compare_theme_dialog_title"
+        android:textIsSelectable="false" />
+
+    <RelativeLayout
+        android:id="@+id/compare_theme_subscript_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="30dp" >
+
+        <TextView
+            android:id="@+id/compare_theme_subscript1_text"
+            style="@style/compare_theme_menu_subscript_font_light_style"
+            android:gravity="center_vertical"
+            android:text="@string/compare_theme_dialog_subscript1"
+            android:textIsSelectable="false" />
+
+        <TextView
+            android:id="@+id/compare_theme_selected_text"
+            style="@style/compare_theme_menu_subscript_font_regular_style"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@+id/compare_theme_subscript1_text"
+            android:gravity="center"
+            android:maxWidth="160dp"
+            android:ellipsize="end"
+            android:textIsSelectable="false" />
+
+        <TextView
+            android:id="@+id/compare_theme_subscript2_text"
+            style="@style/compare_theme_menu_subscript_font_light_style"
+            android:layout_marginLeft="1dp"
+            android:layout_toEndOf="@+id/compare_theme_selected_text"
+            android:gravity="center_vertical"
+            android:text="@string/compare_theme_dialog_subscript2"
+            android:textIsSelectable="false" />
+    </RelativeLayout>
+
+    <View
+        style="@style/menu_separate_line_style" />
+
+    <RelativeLayout
+        android:id="@+id/action_menu_layout_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="14dp"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/action_menu_list"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:listSelector="@android:color/transparent" 
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@null"
+            android:dividerHeight="10dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/compare_theme_button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="12dp" >
+
+        <Button
+            android:id="@+id/cancel_button"
+            style="@org.droidtv.ui.tvwidget2k15:style/button_style"
+            android:layout_width="150dp"
+            android:layout_height="38dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/compare_button"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="30dp"
+            android:textAllCaps="false"
+            android:text="@string/dialog_button_cancel" />
+
+        <Button
+            android:id="@+id/compare_button"
+            style="@org.droidtv.ui.tvwidget2k15:style/button_style"
+            android:layout_width="150dp"
+            android:layout_height="38dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="30dp"
+            android:textAllCaps="false"
+            android:text="@string/dialog_button_compare" />
+
+        <ImageButton
+            android:id="@+id/imageButton_navigation_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:focusable="false"
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            android:maxHeight="42dp"
+            android:maxWidth="66dp"
+            android:scaleType="fitXY"
+            android:visibility="invisible"
+            android:src="@drawable/ic_expand_more_white_48dp" />
+
+    </RelativeLayout>
+</LinearLayout>

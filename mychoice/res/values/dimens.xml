@@ -1,0 +1,22 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+	   <dimen name="channel_logo_height">24dp</dimen>
+   <dimen name="channel_logo_width">32dp</dimen>
+   <dimen name="channels_list_main_container_width">296dp</dimen>
+   <dimen name="channels_list_list_row01_height">46dp</dimen>
+   <dimen name="channel_list_parent_text_left">84dp</dimen>
+   <dimen name="channels_list_list_main_label_text_width">154dp</dimen>
+   <dimen name="channels_list_list_main_label_text_height">22dp</dimen>
+   <dimen name="channels_list_list_channel_logo_container_height">44dp</dimen>
+   <dimen name="channel_list_logo_left">20dp</dimen>
+   <dimen name="channels_list_list_label_padding_left_width">6dp</dimen>
+   <dimen name="channels_list_list_sub_label_text_width">154dp</dimen>
+   <dimen name="channels_list_list_sub_label_text_height">18.5dp</dimen>
+   <dimen name="channels_list_list_padding_left_height">10dp</dimen>
+   <dimen name="spacing_medium">20dp</dimen>
+   <dimen name="left_space_of_title">324dp</dimen>
+   <dimen name="myradiobutton_width">160dp</dimen>
+   <dimen name="myradiobutton_height">46dp</dimen>
+</resources>

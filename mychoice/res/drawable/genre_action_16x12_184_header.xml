@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+	<item android:drawable="@org.droidtv.ui.tvwidget2k15:drawable/genre_action_hl_ico_16x12_184"
+		android:state_focused="true" />
+	<item android:drawable="@org.droidtv.ui.tvwidget2k15:drawable/genre_action_n_ico_16x12_184" />
+</selector>

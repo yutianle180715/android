@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <string name="hello">Hello World, MyChoiceActivity!</string>
+    <string name="app_name">MyChoice</string>
+    <string name="all_channels">all channels</string>
+    <string name="new_theme">New Theme</string>
+    <string name="new_custom_theme">New Custom Theme</string>
+    <string name="rename">Rename</string>
+    <string name="rename_theme">Rename Theme</string>
+    <string name="create_new_theme_dialog_title">Choose a Theme</string>
+    <string name="create_new_theme_first_item">Create Custom Theme</string>
+    <string name="action_dialog_title">Action</string>
+    <string name="action_dialog_list_item01">Rename Theme</string>
+    <string name="action_dialog_list_item02">Duplicate Theme</string>
+    <string name="action_dialog_list_item03">Compare Theme</string>
+    <string name="action_dialog_list_item04">Delete Theme</string>
+    <string name="compare_theme_dialog_title">Compare Themes</string>
+    <string name="compare_theme_dialog_subscript1">Selected Theme:</string>
+    <string name="compare_theme_dialog_subscript2">. Choose Themes to compare.</string>
+    <string name="delete_list_dialog_title">Delete List</string>
+    <string name="delete_list_dialog_check_message">Are you sure you want to delete</string>
+    <string name="dialog_button_delete">Delete</string>
+    <string name="dialog_button_cancel">Cancel</string>
+    <string name="dialog_button_compare">Compare</string>
+    <string name="dialog_button_ok">Ok</string>
+    <string name="channel_manager_theme">MyChoice Manager</string>
+    <string name="mychoice_manager_free_title">MyChoice free</string>
+    <string name="mychoice_manager_pkg1_title">Package 1 locked</string>
+    <string name="mychoice_manager_pkg2_title">Package 2 locked</string>
+</resources>

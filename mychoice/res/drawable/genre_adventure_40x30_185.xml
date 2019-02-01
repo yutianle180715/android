@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<item android:drawable="@org.droidtv.ui.tvwidget2k15:drawable/genre_adventure_hl_ico_40x30_185"
+		android:state_selected="true" />
+	<item android:drawable="@org.droidtv.ui.tvwidget2k15:drawable/genre_adventure_n_ico_40x30_185" />
+</selector>

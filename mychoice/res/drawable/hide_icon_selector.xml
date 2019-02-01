@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:customAttrs="http://schemas.android.com/apk/res/org.droidtv.channels">
+    <item android:drawable="@drawable/channels_badge_hide_highlighted" android:state_focused="true"></item>   
+    <item android:drawable="@drawable/channels_badge_hide_highlighted" android:state_selected="true"></item>    
+	<item android:drawable="@drawable/channels_badge_hide_normal"/>
+  </selector>
+
+

@@ -1,0 +1,1028 @@
+package org.droidtv.mychoice;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.database.Cursor;
+import android.database.MatrixCursor;//ben add for mychoice
+import android.database.MergeCursor;//ben add for mychoice
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
+
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.content.Intent;
+
+import android.widget.CursorAdapter;
+import android.widget.GridView;
+import android.widget.TextView;
+import android.widget.ImageView;
+import org.droidtv.htv.provider.HtvContract.HtvChannelList;
+/*Ben add for MyChoice*/
+import org.droidtv.htv.provider.HtvContract.HtvMyChoiceChannelList;
+import org.droidtv.htv.provider.HtvContract.HtvChannelSetting;
+import org.droidtv.htv.provider.HtvContract.HtvThemeTvSetting;
+import org.droidtv.htv.provider.HtvContract;
+
+import android.media.tv.TvContract.Channels;
+import android.media.tv.TvContract;
+import java.io.ByteArrayInputStream;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.view.LayoutInflater;
+import android.graphics.BitmapFactory;
+
+import android.util.Log;
+import android.net.Uri;
+import java.io.InputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Collections;
+import java.util.Iterator;
+import android.content.Context;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.CheckedTextView;
+import android.graphics.Color;
+import android.graphics.PixelFormat;
+import android.content.ContentValues;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
+import android.widget.AbsListView;
+
+//ben add for mychoice , remark this line import org.droidtv.mychoice.ManagerHandler;
+import android.graphics.Rect;
+import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.widget.FrameLayout;
+import android.util.DisplayMetrics;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.view.KeyEvent;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Button;
+import android.database.sqlite.SQLiteException;
+import android.graphics.drawable.Drawable;
+
+//ben add for mychoice , remark this line import org.droidtv.mychoice.menu.CreateThemeMenu;
+import org.droidtv.mychoice.util.MyChoiceAPIWrapper;
+import org.droidtv.mychoice.R;
+
+import org.droidtv.tv.persistentstorage.TvSettingsConstants;
+import org.droidtv.tv.persistentstorage.ITvSettingsManager;
+import org.droidtv.tv.logger.ILogger;
+import org.droidtv.tv.logger.ILogger.MyChoicePINValidation;
+import org.droidtv.mychoice.osds.MyChoiceLogger;
+
+
+
+//ben add for mychoice , remark this line import org.droidtv.mychoice.util.MyChoiceSettings;
+import org.droidtv.tv.blur.BlurSurface;
+import org.droidtv.ui.tvwidget2k15.blur.BlurSurfaceView;
+import org.droidtv.ui.tvwidget2k15.blur.BlurSurfaceView.BlurHost;
+import org.droidtv.ui.tvwidget2k15.blur.IBlurCallback;
+//import org.droidtv.ui.tvwidget2k15.TopNavigationBar;
+//import org.droidtv.ui.tvwidget2k15.TopNavigationBarItem;
+
+import android.os.SystemProperties;
+//[TF415PHIEUMTK66-1720] Some menu items in professional menu are changed in the Guest language. start
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import java.util.Locale;
+import android.content.res.Configuration;
+//[TF415PHIEUMTK66-1720] Some menu items in professional menu are changed in the Guest language. end
+
+public class OldMyChoiceActivity extends Activity {
+	private static final String TAG = "MyChoiceActivity";
+
+	private MyChoiceAPIWrapper mThemeApi = MyChoiceAPIWrapper.getInstance();
+	private ITvSettingsManager mtvSettings = ITvSettingsManager.Instance.getInterface();
+	static public Handler mMainHandler;
+	private Context mContext;
+	private ProgressBar pb;
+	private ProgressDialog pd;
+	private BlurSurfaceView mBlurSurface = null;
+	private CheckedTextView mCheckedTextView_NewTheme;
+	private static int mCurrentSettingMode = 0;
+	private boolean dataReady = false;
+	static int[] themeFieldList = null;
+	static int[] themeLogoList = null;
+	static int theme_number = 0;
+	Cursor theme_cursor = null;
+	MatrixCursor extras = null;//ben add for mychoice
+	CustomGridView theme_channel_list_bk = null;//ben add for mychoice
+
+	CustomGridView theme_tv_content = null;
+	CustomListView channellist = null;
+	Button gotoNewActivity = null;
+//	private TopNavigationBar mTopMenuBar;
+
+	/* YanFu 2017/06/14 fix  [TF415PHIEUMTK03-1671] (Mychoice)change location of channel in Mychoice group,the result would recovery to original after pagedown */
+	private ArrayList<Channel_Theme_Data> mychoicedata = null;
+	static int preLIdx = 200;//ben add 20151123
+	public static final int MYCHOICE_UI_UPDATE = 0x01;
+	public static final int MYCHOICE_UI_SHOW = 0x02;
+	public static final int MYCHOICE_UI_DISMISS = 0x03;
+	public View  mainview=null;
+	static ArrayList<ChannelData> channeldata = new ArrayList<ChannelData>();
+	//[TF415PHIEUMTK66-1720] Some menu items in professional menu are changed in the Guest language. start
+    private void setResourcesEnd(Context context){
+    	Resources res = context.getResources();
+    	Locale locale = new Locale("en");
+    	Locale.setDefault(locale);
+    	Configuration config = new Configuration();
+    	config.locale = locale;
+    	res.updateConfiguration(config, res.getDisplayMetrics());
+    }
+//[TF415PHIEUMTK66-1720] Some menu items in professional menu are changed in the Guest language.end
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		mContext = this;
+		mThemeApi.setApplicationContext(mContext);
+		setResourcesEnd(mContext);//[TF415PHIEUMTK66-1720] Some menu items in professional menu are changed in the Guest language.
+		SystemProperties.set("sys.htv.mychoice_page", "IN_PROGRESS");
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		mMainHandler = new Handler() {
+			@Override
+			public synchronized void handleMessage(Message msg) {
+				switch (msg.what) {
+				case MYCHOICE_UI_UPDATE:
+					new Thread(new Runnable(){
+						    public void run() {
+						        // TODO Auto-generated method stub
+								try
+								{
+//									initLayout();
+									initData();
+								}catch(Exception e)
+								{
+									e.printStackTrace();
+
+								}
+						}}).start();
+					break;
+				case MYCHOICE_UI_SHOW:
+					pd.dismiss();
+					updateLt();
+
+					break;
+				case MYCHOICE_UI_DISMISS:
+					Log.v(TAG, "dataReady:" + dataReady);
+					if (!dataReady) {
+						Log.v(TAG, "MYCHOICE_UI_DISMISS");
+						pd.dismiss();
+						finish();
+					}
+					break;
+				default:
+					super.handleMessage(msg);
+					break;
+				}
+
+			};
+		};
+
+
+
+		preLIdx = 200;
+		MyChoiceLogger.getInstance(this).bindToLoggingService();
+	}
+
+	protected void initLt() {
+		LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		mainview = inflater.inflate(R.layout.activity_main_2,null);
+		setContentView(mainview);
+		gotoNewActivity = (Button) mainview.findViewById(R.id.checkedTextView1);
+		gotoNewActivity.setOnClickListener(new OnClickListener() {
+		@Override
+			public void onClick(View v) {
+			// TODO Auto-generated method stub
+				Intent it =  new Intent(MyChoiceActivity.this, MyChoiceNewActivity.class);
+				startActivity(it);
+			}
+		});
+
+		mBlurSurface = (BlurSurfaceView) mainview.findViewById(R.id.blur_full_screen);
+		mBlurSurface.setBlurCallback(new MyChoiceBlurCallback(mContext, new BlurSurface()));
+		mBlurSurface.setName(TAG);
+		mBlurSurface.setMode(mThemeApi.BlurMode);
+		mBlurSurface.setRegion(new Rect(0, 0, mThemeApi.DM.widthPixels, mThemeApi.DM.heightPixels));
+		mBlurSurface.setVisibility(View.VISIBLE);
+//		getWindow().setFormat(PixelFormat.TRANSLUCENT);
+
+		theme_tv_content = (CustomGridView) mainview.findViewById(R.id.gridView3);
+		channellist = (CustomListView) mainview.findViewById(R.id.gridView2);
+
+		pd = new ProgressDialog(mContext, R.style.CustomDialog);
+		pd.setContentView(R.layout.application_loader);
+		pd.setOnCancelListener(new DialogInterface.OnCancelListener() {
+
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
+				Log.v(TAG, "onCancel");
+				// finish();
+				Message m = mMainHandler.obtainMessage();
+				m.what = MYCHOICE_UI_DISMISS;
+				mMainHandler.sendMessage(m);
+
+			}
+		});
+		WindowManager.LayoutParams params = pd.getWindow().getAttributes();
+	    params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+	    params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+	    pd.getWindow().setAttributes(params);
+		pd.show();
+	}
+
+	protected void updateLt() {
+		setThemeHeader(theme_number);
+		theme_tv_content.setNumColumns(theme_number);
+		myCursorsAdapter adapter = new myCursorsAdapter(this, R.layout.channel_header, channeldata);
+		channellist.setAdapter(adapter);
+
+		CustomGridView theme_channel_list = (CustomGridView) mainview.findViewById(R.id.gridView3);
+		/* YanFu 2017/06/14 fix  [TF415PHIEUMTK03-1671] (Mychoice)change location of channel in Mychoice group,the result would recovery to original after pagedown */
+
+		theme_channel_Adapter adapter3 = new theme_channel_Adapter(this, R.layout.channel_theme,
+				mychoicedata);
+
+		theme_channel_list.setAdapter(adapter3);
+		final CustomHorizontalScrollView scrollView0 = (CustomHorizontalScrollView) mainview.findViewById(R.id.hsv);
+		final CustomHorizontalScrollView scrollView1 = (CustomHorizontalScrollView) mainview.findViewById(R.id.hsv2);
+		scrollView0.setScrollView(scrollView1);
+		scrollView1.setScrollView(scrollView0);
+		theme_channel_list.setAdapter(adapter3);
+		//ben add for mychoice
+		theme_channel_list_bk = theme_channel_list;
+
+		theme_channel_list.setOnItemClickListener(new GridView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView adapterView, View view, int position, long id) {
+				int displaynumber = mThemeApi.getChannelList().get((int) (position / MyChoiceActivity.theme_number))
+						.getChannelNum();
+
+				int themenumber = MyChoiceActivity.themeFieldList[(position % MyChoiceActivity.theme_number)];
+				int [] retVal = {0,0,0};
+
+				retVal = getThemeActiveRow(displaynumber);
+
+				//Log.d("BEN","Before , retVal[0] = " + retVal[0] +  ", retVal[1] = " + retVal[1] + ", retVal[2] = " + retVal[2]);
+				switch((position % MyChoiceActivity.theme_number))
+				{
+					case 0:
+						if (retVal[0] == 1)
+						{
+							if (retVal[1] != 0 || retVal[2] != 0)
+								retVal[0] = 0;
+						}
+						else
+						{
+							retVal[0] = 1;
+							retVal[1] = 0;
+							retVal[2] = 0;
+						}
+						break;
+					case 1:
+						if (retVal[1] == 1)
+						{
+							retVal[1] = 0;
+							if (retVal[2] == 0)
+									retVal[0] = 1;
+						}
+						else
+						{
+							retVal[0] = 0;
+							retVal[1] = 1;
+						}
+						break;
+					case 2:
+						if (retVal[2] == 1)
+						{
+							retVal[2] = 0;
+							if (retVal[1] == 0)
+									retVal[0] = 1;
+						}
+						else
+						{
+							retVal[0] = 0;
+							retVal[2] = 1;
+						}
+						break;
+				}
+				int storeIndex = ( position / 3 ) * 3;
+				Log.d("MyChoice","storeIndex = " + storeIndex );
+				mychoicedata.get(storeIndex).setThemeActive(retVal[0]);
+				mychoicedata.get(storeIndex+1).setThemeActive(retVal[1]);
+				mychoicedata.get(storeIndex+2).setThemeActive(retVal[2]);
+				//Log.d("BEN","After , retVal[0] = " + retVal[0] +  ", retVal[1] = " + retVal[1] + ", retVal[2] = " + retVal[2]);
+				mThemeApi.setThemeDataToDB(displaynumber,retVal);
+				sendMyChoicePinLog();
+
+
+				//ben add for mychoice
+				int first_pos = theme_channel_list_bk.getFirstVisiblePosition();
+				int startPos =  position - first_pos - (position % 3);
+				//Log.d("BEN","position = "+ position + ", startPos = " + startPos);
+
+				View view1 =  (View)theme_channel_list_bk.getChildAt(startPos);
+				View view2 =  (View)theme_channel_list_bk.getChildAt(startPos+1);
+				View view3 =  (View)theme_channel_list_bk.getChildAt(startPos+2);
+				ImageView logo1 = (ImageView) view1.findViewById(R.id.themeLogo);
+				ImageView logo2 = (ImageView) view2.findViewById(R.id.themeLogo);
+				ImageView logo3 = (ImageView) view3.findViewById(R.id.themeLogo);
+
+
+				if (retVal[0] == 1)
+				{
+					logo1.setAlpha(1.0f);
+				}
+				else
+				{
+					logo1.setAlpha(0.4f);
+				}
+
+				if (retVal[1] == 1)
+				{
+					logo2.setAlpha(1.0f);
+				}
+				else
+				{
+					logo2.setAlpha(0.4f);
+				}
+
+				if (retVal[2] == 1)
+				{
+					logo3.setAlpha(1.0f);
+				}
+				else
+				{
+					logo3.setAlpha(0.4f);
+				}
+			}
+		});
+		final CustomGridView theme_channel_list_f = theme_channel_list;
+		final CustomListView channellist_f = channellist;
+
+		channellist.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				int pos = channellist_f.getLastVisiblePosition();
+				int[] location = new int[2];
+				if (view != null) {
+
+					if (channellist_f.computeVerticalScrollOffset() > (channeldata.size() - 9) * 100) {
+						if (theme_number != 0)
+
+							pos = (pos - 7) * theme_number;
+					} else {
+						if (theme_number != 0)
+
+							pos = (pos - 8) * theme_number;
+					}
+
+					theme_channel_list_f.smoothScrollToPositionFromTop(pos, 0, 1);
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}
+		});
+
+		theme_channel_list.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+				int pos = theme_channel_list_f.getFirstVisiblePosition();
+				int[] location = new int[2];
+				/*
+				 * Log.d("Theme",
+				 * "theme_channel_list getFirstVisiblePosition() :" +
+				 * theme_channel_list_f.getFirstVisiblePosition());
+				 * Log.d("Theme",
+				 * "theme_channel_list computeVerticalScrollOffset() :" +
+				 * theme_channel_list_f.computeVerticalScrollOffset());
+				 */
+				if (view != null) {
+					view.getLocationOnScreen(location);
+					if (location[0] < 399) {
+						scrollView0.smoothScrollTo((int) view.getX(), (int) view.getY());
+					} else if (location[0] > 1077) {
+						scrollView0.smoothScrollTo((int) view.getX() - (199 * 3), (int) view.getY());
+					}
+					if ((theme_channel_list_f.computeVerticalScrollOffset() % 100) != 0) {
+						pos = pos / theme_number + 1;
+					} else {
+						pos = pos / theme_number;
+					}
+
+					channellist_f.smoothScrollToPositionFromTop(pos, 0, 1);
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}
+		});
+
+
+
+		DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
+		LinearLayout ll_gridetableLayout2 = (LinearLayout) mainview.findViewById(R.id.linearLayout_gridtableLayout2);
+		ll_gridetableLayout2.setLayoutParams(new FrameLayout.LayoutParams((int) (150* metrics.density* theme_number),
+				LinearLayout.LayoutParams.MATCH_PARENT));
+
+		DisplayMetrics dm = new DisplayMetrics();
+		LinearLayout ll_gridetableLayout = (LinearLayout) mainview.findViewById(R.id.linearLayout_gridtableLayout);
+		ll_gridetableLayout.setLayoutParams(new FrameLayout.LayoutParams((int) (150* metrics.density* theme_number),
+				LinearLayout.LayoutParams.MATCH_PARENT));
+
+	}
+
+	protected void initData() {
+//		TopNavigationBarItem topMenuBarItem = (TopNavigationBarItem)mainview.findViewById(R.id.satellite);
+//		topMenuBarItem.setResources(mContext.getResources().getDrawable(R.drawable.program_guide_selector),getResources().getString(R.string.channel_manager_theme));
+		String[] mProjection = { TvContract.Channels.COLUMN_DISPLAY_NUMBER, TvContract.Channels.COLUMN_DISPLAY_NAME,
+				TvContract.Channels._ID };
+
+		//ben add for mychoice
+		String[] mProjection2 = { HtvChannelSetting.COLUMN_DISPLAY_NUMBER, HtvChannelSetting.COLUMN_FREEPKG,
+				HtvChannelSetting.COLUMN_PAYPKG1, HtvChannelSetting.COLUMN_PAYPKG2,HtvChannelSetting._ID
+		};
+		String[] mProjection4 = { TvContract.Channels.COLUMN_LOCKED, TvContract.Channels.COLUMN_DISPLAY_NUMBER,
+				TvContract.Channels._ID };
+		String[] mProjection5 = { HtvChannelSetting.COLUMN_SKIP1, HtvChannelSetting.COLUMN_DISPLAY_NUMBER,
+				HtvChannelSetting._ID };
+
+		String sortOrder = TvContract.Channels._ID;
+		String sortOrder3 = HtvChannelSetting.COLUMN_DISPLAY_NUMBER;
+//		GridView gridView;
+
+		channeldata = mThemeApi.getChannelList();
+
+		try {
+			if (theme_cursor != null)
+				theme_cursor.close();
+			// ben add for mychoice
+			if (extras != null)
+				extras.close();
+
+			extras = new MatrixCursor(new String[] { HtvThemeTvSetting.COLUMN_MAPPED_THEME_FIELD,
+					HtvThemeTvSetting.COLUMN_LOGO, HtvThemeTvSetting._ID, HtvThemeTvSetting.COLUMN_NAME });
+
+			extras.addRow(new Object[] { 1, 0, 1,
+					getResources().getString(org.droidtv.ui.strings.R.string.HTV_MYCHOICE_FREE_PKG) });
+			extras.addRow(new Object[] { 2, 0, 2,
+					getResources().getString(org.droidtv.ui.strings.R.string.HTV_MYCHOICE_PKG1) });
+			extras.addRow(new Object[] { 3, 0, 3,
+					getResources().getString(org.droidtv.ui.strings.R.string.HTV_MYCHOICE_PKG2) });
+			Cursor[] cursors = { extras };
+			theme_cursor = new MergeCursor(cursors);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			Log.d(TAG, " skip cursor");
+		}
+		mThemeApi.setApplicationContext(mContext);
+		theme_number = theme_cursor.getCount();
+
+		themeFieldList = new int[theme_number];
+		themeLogoList = new int[theme_number];
+		theme_cursor.moveToFirst();
+		for (int i = 0; i < theme_number; ++i) {
+			themeFieldList[i] = theme_cursor.getInt(0);
+			themeLogoList[i] = theme_cursor.getInt(1);
+			theme_cursor.moveToNext();
+		}
+		theme_cursor.moveToFirst();
+		mychoicedata = getChannelThemeContent(theme_number, channeldata);
+
+		dataReady = true;
+		Message m = mMainHandler.obtainMessage();//Message.obtain();
+		m.what= MYCHOICE_UI_SHOW;
+		mMainHandler.sendMessage(m);
+	}
+
+	protected void onResume() {
+		Log.d(TAG,"----- onResume -----\n");
+		initLt();
+
+		super.onResume();
+		if (mBlurSurface != null) {
+			mBlurSurface.onResume();
+		}
+		Message m = mMainHandler.obtainMessage();
+		m.what= MYCHOICE_UI_UPDATE;
+		mMainHandler.sendMessage(m);
+
+	}
+
+	@Override
+	protected void onPause() {
+		Log.d(TAG,"----- onPause -----\n");
+		SystemProperties.set("sys.htv.mychoice_page", "OFF");
+		//align broadcast for channels app service to sync data -- by Daemon.yu
+		Intent it = new Intent("org.droidtv.mychoice.MYCHOICE_DATA_CHANGED");
+		sendBroadcast(it);
+
+		super.onPause();
+		if (mBlurSurface != null) {
+			mBlurSurface.onPause();
+		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		Log.d(TAG,"----- onDestroy -----\n");
+		SystemProperties.set("sys.htv.mychoice_page", "OFF");
+		super.onDestroy();
+		if (theme_cursor != null)
+			theme_cursor.close();
+	}
+	private void sendMyChoicePinLog() {
+		int pkg1 = 0, pkg2 = 0;
+		Cursor cursor_mychoicepinlog = null;
+		int pkg1ok , pkg2ok , pkg1fail ,pkg2fail;
+
+		pkg1ok = mtvSettings.getInt(TvSettingsConstants.MYCHOICE_DIANOGISC_PKG1_SUCESS,0,0);
+		pkg2ok = mtvSettings.getInt(TvSettingsConstants.MYCHOICE_DIANOGISC_PKG2_SUCESS,0,0);
+		pkg1fail = mtvSettings.getInt(TvSettingsConstants.MYCHOICE_DIANOGISC_PKG1_ERROR,0,0);
+		pkg2fail = mtvSettings.getInt(TvSettingsConstants.MYCHOICE_DIANOGISC_PKG2_ERROR,0,0);
+
+		String[] mProjection = {HtvChannelSetting.COLUMN_MEDIA_TYPE,HtvChannelSetting.COLUMN_PAYPKG1, HtvChannelSetting.COLUMN_PAYPKG2};
+		cursor_mychoicepinlog = getContentResolver().query(HtvContract.HtvMyChoiceChannelList.CONTENT_URI, mProjection, null, null, null);
+		while (cursor_mychoicepinlog.moveToNext()) {
+			String mediatype = cursor_mychoicepinlog.getString(0);
+			boolean bTunerSrc =  mediatype.contains("TYPE_TUNER");
+
+			if (bTunerSrc) {
+				if (cursor_mychoicepinlog.getInt(1)==1)
+					pkg1++;
+				if (cursor_mychoicepinlog.getInt(2)==1)
+					pkg2++;
+			}
+		}
+
+        ILogger.MyChoicePINValidation m = new ILogger.MyChoicePINValidation();
+        m.list_name = "PKG1,PKG2";
+        m.amt_channels = pkg1+pkg2;//String.valueOf(pkg1) + "," + String.valueOf(pkg2);
+        m.pass_no_pin_tries = pkg1ok+pkg2ok;//String.valueOf(pkg1ok) + "," + String.valueOf(pkg2ok);
+        m.failed_no_pin_tries = pkg1fail+pkg2fail;//String.valueOf(pkg1fail) + "," + String.valueOf(pkg2fail);
+
+		MyChoiceLogger.logMyChoicePin(m);
+	}
+
+	private ArrayList<Channel_Theme_Data> getChannelThemeContent(int theme_number, ArrayList<ChannelData> t) {
+		Bitmap logo = null;
+		int lock;
+		int scramble;
+		int skip;
+		int blank;
+		int active;
+		int [] retVal= {0,0,0};
+		ArrayList<Channel_Theme_Data> res = new ArrayList<Channel_Theme_Data>();
+		for (int j = 0; j < t.size(); j++) {
+			logo = t.get(j).getChannelLogo();
+			retVal = getThemeActiveRow(t.get(j).getChannelNum());
+			for (int i = 0; i < theme_number; i++) {
+				Channel_Theme_Data data = new Channel_Theme_Data(logo, t.get(j).getChannelNum(), themeFieldList[i], 0,
+						0, 0, retVal[i],t.get(j).getItemType());
+				res.add(data);
+			}
+		}
+		return res;
+	}
+
+	public int[] getThemeActiveRow(int displaynumber) {
+		int [] returnvalue = {0,0,0};
+		Cursor cursor = null;
+		//ben add for mychoice, remark next body
+		/*
+		String[] mProjection = { HtvChannelSetting.COLUMN_DISPLAY_NUMBER, HtvChannelSetting.COLUMN_TTV1_ORDER,
+				HtvChannelSetting.COLUMN_TTV2_ORDER, HtvChannelSetting.COLUMN_TTV3_ORDER,
+				HtvChannelSetting.COLUMN_TTV4_ORDER, HtvChannelSetting.COLUMN_TTV5_ORDER,
+				HtvChannelSetting.COLUMN_TTV6_ORDER, HtvChannelSetting.COLUMN_TTV7_ORDER,
+				HtvChannelSetting.COLUMN_TTV8_ORDER, HtvChannelSetting.COLUMN_TTV9_ORDER,
+				HtvChannelSetting.COLUMN_TTV10_ORDER, HtvChannelSetting._ID };\
+		*/
+		//ben add for mychoice
+
+
+		String[] mProjection = { HtvChannelSetting.COLUMN_DISPLAY_NUMBER, HtvChannelSetting.COLUMN_FREEPKG,
+				HtvChannelSetting.COLUMN_PAYPKG1, HtvChannelSetting.COLUMN_PAYPKG2,HtvChannelSetting._ID };
+
+		try {
+				cursor = this.getContentResolver().query(HtvChannelSetting.CONTENT_URI, mProjection,
+				new StringBuilder(HtvChannelSetting.COLUMN_DISPLAY_NUMBER).append("=?").toString(),
+				new String[] { Integer.toString(displaynumber) }, null, null);
+			if (cursor.getCount() > 0) {
+				cursor.moveToFirst();
+				returnvalue[0] = cursor.getInt(1);
+				returnvalue[1] = cursor.getInt(2);
+				returnvalue[2] = cursor.getInt(3);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (cursor != null)
+				cursor.close();
+			cursor = null;
+		}
+		return returnvalue;
+	}
+
+	public int getThemeActive(int displaynumber, int theme) {
+		int returnvalue = 0;
+		Cursor cursor = null;
+
+		String[] mProjection = { HtvChannelSetting.COLUMN_DISPLAY_NUMBER, HtvChannelSetting.COLUMN_FREEPKG,
+				HtvChannelSetting.COLUMN_PAYPKG1, HtvChannelSetting.COLUMN_PAYPKG2, HtvChannelSetting._ID };
+
+		try {
+			cursor = this.getContentResolver().query(HtvChannelSetting.CONTENT_URI, mProjection,
+					new StringBuilder(HtvChannelSetting.COLUMN_DISPLAY_NUMBER).append("=?").toString(),
+					new String[] { Integer.toString(displaynumber) }, null, null);
+			if (cursor.getCount() > 0) {
+				cursor.moveToFirst();
+				returnvalue = cursor.getInt(theme);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (cursor != null)
+				cursor.close();
+			cursor = null;
+		}
+		return returnvalue;
+	}
+
+	public void setThemeHeader(int theme_number) {
+
+		LinearLayout l1 = null;
+		LinearLayout l2 = null;
+		LinearLayout l3 = null;
+		LinearLayout l4 = null;
+		LinearLayout l5 = null;
+		LinearLayout l6 = null;
+		LinearLayout l7 = null;
+		LinearLayout l8 = null;
+		LinearLayout l9 = null;
+		LinearLayout l10 = null;
+		int icon[] = { R.drawable.genre_action_16x12_184_header, R.drawable.genre_adventure_16x12_185_header,
+				R.drawable.genre_crime_16x12_193_header, R.drawable.genre_children_16x12_190_header, R.drawable.genre_comedy_16x12_192_header,
+				R.drawable.genre_drama_16x12_195_header, R.drawable.ic_toys_white_18dp,
+				R.drawable.ic_brightness_2_white_18dp, R.drawable.ic_cloud_queue_white_18dp,
+				R.drawable.ic_grade_white_18dp };
+		switch (theme_number) {
+		case 10:
+			l10 = (LinearLayout) mainview.findViewById(R.id.theme10);
+		case 9:
+			l9 = (LinearLayout) mainview.findViewById(R.id.theme9);
+		case 8:
+			l8 = (LinearLayout) mainview.findViewById(R.id.theme8);
+		case 7:
+			l7 = (LinearLayout) mainview.findViewById(R.id.theme7);
+		case 6:
+			l6 = (LinearLayout) mainview.findViewById(R.id.theme6);
+		case 5:
+			l5 = (LinearLayout) mainview.findViewById(R.id.theme5);
+		case 4:
+			l4 = (LinearLayout) mainview.findViewById(R.id.theme4);
+		case 3:
+			l3 = (LinearLayout) mainview.findViewById(R.id.theme3);
+		case 2:
+			l2 = (LinearLayout) mainview.findViewById(R.id.theme2);
+		case 1:
+			l1 = (LinearLayout) mainview.findViewById(R.id.theme1);
+		default:
+
+		}
+		theme_cursor.moveToFirst();
+		if (l1 != null) {
+			l1.setVisibility(0);
+			TextView themeNumber1 = (TextView) mainview.findViewById(R.id.themeNumber1);
+			themeNumber1.setText(theme_cursor.getString(theme_cursor.getColumnIndex(HtvThemeTvSetting.COLUMN_NAME)));
+			Log.v("EAGLE",theme_cursor.getString(theme_cursor.getColumnIndex(HtvThemeTvSetting.COLUMN_NAME)));
+			themeNumber1.setOnClickListener(new TextView.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (v != null) {
+					}
+				}
+			});
+			theme_cursor.moveToNext();
+		}
+		if (l2 != null) {
+			l2.setVisibility(0);
+			TextView themeNumber2 = (TextView) mainview.findViewById(R.id.themeNumber2);
+			themeNumber2.setText(theme_cursor.getString(theme_cursor.getColumnIndex(HtvThemeTvSetting.COLUMN_NAME)));
+			themeNumber2.setOnClickListener(new TextView.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (v != null) {
+					}
+				}
+			});
+			theme_cursor.moveToNext();
+		}
+		if (l3 != null) {
+			l3.setVisibility(0);
+			TextView themeNumber3 = (TextView) mainview.findViewById(R.id.themeNumber3);
+			themeNumber3.setText(theme_cursor.getString(theme_cursor.getColumnIndex(HtvThemeTvSetting.COLUMN_NAME)));
+			themeNumber3.setOnClickListener(new TextView.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (v != null) {
+					}
+				}
+			});
+			theme_cursor.moveToNext();
+		}
+		if (l4 != null) {
+			l4.setVisibility(0);
+			TextView themeNumber4 = (TextView) mainview.findViewById(R.id.themeNumber4);
+			themeNumber4.setText(theme_cursor.getString(theme_cursor.getColumnIndex(HtvThemeTvSetting.COLUMN_NAME)));
+			final int logoId = theme_cursor.getInt(theme_cursor.getColumnIndex("logo"));
+			themeNumber4.setCompoundDrawablesWithIntrinsicBounds(icon[logoId], 0, 0, 0);
+			themeNumber4.setOnClickListener(new TextView.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (v != null) {
+					}
+				}
+			});
+			theme_cursor.moveToNext();
+		}
+		if (l5 != null) {
+			l5.setVisibility(0);
+			TextView themeNumber5 = (TextView) mainview.findViewById(R.id.themeNumber5);
+			themeNumber5.setText(theme_cursor.getString(theme_cursor.getColumnIndex(HtvThemeTvSetting.COLUMN_NAME)));
+			final int logoId = theme_cursor.getInt(theme_cursor.getColumnIndex("logo"));
+			themeNumber5.setCompoundDrawablesWithIntrinsicBounds(icon[logoId], 0, 0, 0);
+			themeNumber5.setOnClickListener(new TextView.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (v != null) {
+					}
+				}
+			});
+			theme_cursor.moveToNext();
+		}
+		if (l6 != null) {
+			l6.setVisibility(0);
+			TextView themeNumber6 = (TextView) mainview.findViewById(R.id.themeNumber6);
+			themeNumber6.setText(theme_cursor.getString(theme_cursor.getColumnIndex(HtvThemeTvSetting.COLUMN_NAME)));
+			final int logoId = theme_cursor.getInt(theme_cursor.getColumnIndex("logo"));
+			themeNumber6.setCompoundDrawablesWithIntrinsicBounds(icon[logoId], 0, 0, 0);
+			themeNumber6.setOnClickListener(new TextView.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (v != null) {
+					}
+				}
+			});
+			theme_cursor.moveToNext();
+		}
+		if (l7 != null) {
+			l7.setVisibility(0);
+			TextView themeNumber7 = (TextView) mainview.findViewById(R.id.themeNumber7);
+			themeNumber7.setText(theme_cursor.getString(theme_cursor.getColumnIndex(HtvThemeTvSetting.COLUMN_NAME)));
+			final int logoId = theme_cursor.getInt(theme_cursor.getColumnIndex("logo"));
+			themeNumber7.setCompoundDrawablesWithIntrinsicBounds(icon[logoId], 0, 0, 0);
+			themeNumber7.setOnClickListener(new TextView.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (v != null) {
+					}
+				}
+			});
+			theme_cursor.moveToNext();
+		}
+		if (l8 != null) {
+			l8.setVisibility(0);
+			TextView themeNumber8 = (TextView) mainview.findViewById(R.id.themeNumber8);
+			themeNumber8.setText(theme_cursor.getString(theme_cursor.getColumnIndex(HtvThemeTvSetting.COLUMN_NAME)));
+			final int logoId = theme_cursor.getInt(theme_cursor.getColumnIndex("logo"));
+			themeNumber8.setCompoundDrawablesWithIntrinsicBounds(icon[logoId], 0, 0, 0);
+			themeNumber8.setOnClickListener(new TextView.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (v != null) {
+					}
+				}
+			});
+			theme_cursor.moveToNext();
+		}
+		if (l9 != null) {
+			l9.setVisibility(0);
+			TextView themeNumber9 = (TextView) mainview.findViewById(R.id.themeNumber9);
+			themeNumber9.setText(theme_cursor.getString(theme_cursor.getColumnIndex(HtvThemeTvSetting.COLUMN_NAME)));
+			final int logoId = theme_cursor.getInt(theme_cursor.getColumnIndex("logo"));
+			themeNumber9.setCompoundDrawablesWithIntrinsicBounds(icon[logoId], 0, 0, 0);
+			themeNumber9.setOnClickListener(new TextView.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (v != null) {
+					}
+				}
+			});
+			theme_cursor.moveToNext();
+		}
+		if (l10 != null) {
+			l10.setVisibility(0);
+			TextView themeNumber10 = (TextView) mainview.findViewById(R.id.themeNumber10);
+			themeNumber10.setText(theme_cursor.getString(theme_cursor.getColumnIndex(HtvThemeTvSetting.COLUMN_NAME)));
+			final int logoId = theme_cursor.getInt(theme_cursor.getColumnIndex("logo"));
+			themeNumber10.setCompoundDrawablesWithIntrinsicBounds(icon[logoId], 0, 0, 0);
+			themeNumber10.setOnClickListener(new TextView.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (v != null) {
+					}
+				}
+			});
+			theme_cursor.moveToNext();
+		}
+		theme_cursor.moveToFirst();
+	}
+
+}
+
+class myCursorsAdapter extends android.widget.ArrayAdapter {
+	int reSource;
+	Context context = null;
+	private LayoutInflater mInflater;
+	private ArrayList<ChannelData> abc = null;
+	private int mScrambledIconDimen = 0;
+
+	public myCursorsAdapter(Context context, int textViewResourceId, ArrayList<ChannelData> objects) {
+		super(context, textViewResourceId, objects);
+		// TODO Auto-generated constructor stub
+		reSource = textViewResourceId;
+		mInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+		this.context=context;
+		abc = objects;
+
+	}
+
+	public View getView(int position, View convertView, ViewGroup parent) {
+		View view;
+		ViewHolder holder;
+		//Log.d("TAG","getView ---1");
+		if (convertView == null) {
+			view = mInflater.inflate(reSource, parent, false);
+			holder = new ViewHolder();
+			holder.nameView = (TextView) view.findViewById(R.id.channelName);
+			holder.phoneNum = (TextView) view.findViewById(R.id.channelNumber);
+			holder.logoView = (ImageView) view.findViewById(R.id.channelLogo);
+			view.setTag(holder);
+
+		} else {
+			view = convertView;
+			holder = (ViewHolder) convertView.getTag();
+
+		}
+		ChannelData temp = abc.get(position);
+		mScrambledIconDimen = (int)context.getResources().getDimension(R.dimen.channels_list_list_padding_left_height);
+		holder.nameView.setText(temp.getChannelName());
+
+		if (temp.getScramble() == true) {
+			Drawable lScrambledIcon = context.getResources().getDrawable(R.drawable.scrambled_icon_selector);
+			lScrambledIcon.setBounds(0, 0, mScrambledIconDimen, mScrambledIconDimen);
+
+			holder.nameView.setCompoundDrawables(lScrambledIcon, null, null, null);
+		} else if (temp.getSkip() == true) {
+			Drawable lScrambledIcon = context.getResources().getDrawable(R.drawable.hide_icon_selector);
+			lScrambledIcon.setBounds(0, 0, mScrambledIconDimen, mScrambledIconDimen);
+
+			holder.nameView.setCompoundDrawables(lScrambledIcon, null, null, null);
+		}
+		else if(temp.getLock()==true){
+		Drawable lScrambledIcon = context.getResources().getDrawable(R.drawable.blank_icon_selector);
+						lScrambledIcon.setBounds( 0, 0, mScrambledIconDimen, mScrambledIconDimen );
+
+		holder.nameView.setCompoundDrawables(lScrambledIcon, null, null, null);
+		}
+		else{
+		holder.nameView.setCompoundDrawables(null, null, null, null);
+		}
+
+		holder.phoneNum.setText(Integer.toString(temp.getChannelNum()));
+		holder.logoView.setImageBitmap(temp.getChannelLogo());
+		int itemType = temp.getItemType();
+		switch (itemType){
+			case 2:
+			case 1:
+				holder.logoView.setBackground(null);
+				break;
+			default:
+				holder.logoView.setBackgroundResource(R.drawable.channels_logo_container_highlighted);
+				break;
+		}
+		view.setId(position);
+		return view;
+	}
+
+	@Override
+	public int getCount() {
+		return abc != null ? abc.size() : 0;
+	}
+
+	static class ViewHolder {
+		TextView nameView;
+		TextView phoneNum;
+		ImageView logoView;
+	}
+}
+
+class theme_channel_Adapter extends android.widget.ArrayAdapter {
+	int reSource;
+	Context context = null;
+	private LayoutInflater mInflater;
+	private ArrayList<Channel_Theme_Data> cde = null;
+
+	public theme_channel_Adapter(Context context, int textViewResourceId, ArrayList<Channel_Theme_Data> objects) {
+		super(context, textViewResourceId, objects);
+		// TODO Auto-generated constructor stub
+		mInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+		reSource = textViewResourceId;
+		this.context=context;
+		cde = objects;
+	}
+
+	public View getView(int position, View convertView, ViewGroup parent) {
+		View view;
+		//Log.d("TAG","getView ---2");
+		if (convertView == null) {
+			view = mInflater.inflate(reSource, parent, false);
+		} else {
+			view = convertView;
+		}
+
+		ImageView logoView = (ImageView) view.findViewById(R.id.themeLogo);
+		logoView.setImageBitmap(cde.get(position).getChannelLogo());
+		//logoView.setBackgroundResource(org.droidtv.ui.tvwidget2k15.R.drawable.channels_logo_container_highlighted);
+		int itemType = cde.get(position).getItemType();
+		switch (itemType){
+			case 2:
+			case 1:
+				logoView.setBackground(null);
+				break;
+			default:
+				logoView.setBackgroundResource(R.drawable.channels_logo_container_highlighted);
+				break;
+		}
+
+		if (cde.get(position).getThemeActive() == 0) {
+			logoView.setAlpha(0.4f);
+		} else {
+			logoView.setAlpha(1.0f);
+		}
+		view.setId(position);
+		return view;
+	}
+
+	@Override
+	public int getCount() {
+		return cde != null ? cde.size() : 0;
+	}
+}
+
+class MyChoiceBlurCallback extends IBlurCallback {
+	private BlurSurface mBS;
+	private Context mCtx;
+
+	public MyChoiceBlurCallback(Context ctx, BlurSurface bs) {
+		mCtx = ctx;
+		mBS = bs;
+	}
+
+	@Override
+	public BlurHost getHost() {
+		return new BlurHost().setActivity((Activity) mCtx);
+	}
+
+	@Override
+	public void onDrawFrame(int left, int top, int right, int bottom, int scalefactor, int blurradius, float darkness,
+			String blursurfaceid, int blurmode) {
+		mBS.drawBlurSurface(left, top, right, bottom, scalefactor, blurradius, darkness, blursurfaceid, blurmode);
+	}
+
+	@Override
+	public int setupBlur(int width, int height, int scalefactor) {
+		return mBS.setupBlur(width, height, scalefactor);
+	}
+}
+
+
+

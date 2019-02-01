@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@android:style/Theme.Material">
+        <!-- Customize your theme here. -->
+    </style>
+		<style name="channels_list_list_main_label_text_style" parent="@org.droidtv.ui.tvwidget2k15:style/lll">
+	<item name="android:gravity">left</item>
+	</style>
+	<style name="channels_list_list_sub_label_text_style" parent="@org.droidtv.ui.tvwidget2k15:style/lsl">
+	<item name="android:gravity">left</item>
+</style>
+    <style name="epgTransparentTheme" parent="@org.droidtv.ui.tvwidget2k15:style/uiComponentsTheme">	<item name="android:windowBackground">@android:color/transparent</item>		<item name="android:colorBackgroundCacheHint">@null</item>		<item name="android:windowIsTranslucent">true</item>		<item name="android:windowNoTitle">true</item>		<item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="menu_separate_line_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginLeft">1dp</item>
+        <item name="android:layout_marginRight">1dp</item>
+        <item name="android:background">@drawable/background_separate_line</item>
+    </style>
+    <style name="menu_title_style">
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:fontFamily">Roboto Regular</item>
+        <item name="android:textSize">17.0sp</item>
+        <item name="android:textColor">@color/normal</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+    <style name="action_menu_item_style">
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:fontFamily">Roboto Light</item>
+        <item name="android:textSize">17.0sp</item>
+        <item name="android:textColor">@color/normal</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">17.0sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+
+    <style name="action_menu_item_selected_style">
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:fontFamily">Roboto Regular</item>
+        <item name="android:textSize">17.0sp</item>
+        <item name="android:textColor">@color/highlighted</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">17.0sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+    <style name="compare_theme_menu_title_style">
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:fontFamily">Roboto Regular</item>
+        <item name="android:textSize">17.0sp</item>
+        <item name="android:textColor">@color/normal</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">18dp</item>
+        <item name="android:layout_marginLeft">30dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+
+    <style name="compare_theme_menu_subscript_font_light_style">
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:fontFamily">Roboto Light</item>
+        <item name="android:textSize">17.0sp</item>
+        <item name="android:textColor">@color/normal</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+
+    <style name="compare_theme_menu_subscript_font_regular_style">
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:fontFamily">Roboto Regular</item>
+        <item name="android:textSize">17.0sp</item>
+        <item name="android:textColor">@color/normal</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+
+    <style name="compare_theme_menu_item_selected_style">
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:fontFamily">Roboto Regular</item>
+        <item name="android:textSize">17.0sp</item>
+        <item name="android:textColor">@color/highlighted</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">17.0sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+
+    <style name="compare_theme_menu_button_style">
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:fontFamily">Roboto Light</item>
+        <item name="android:textSize">17.0sp</item>
+        <item name="android:textColor">@color/normal</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textIsSelectable">false</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:background">@drawable/background_button_rounded</item>
+    </style>
+	<style name="list_item_middle_style">
+    	<item name="android:background">@drawable/background_view_rounded_non_selected</item>
+	</style>
+	<style name="content_page_large_text">
+		<item name="android:duplicateParentState">true</item>
+        <item name="android:textSize">14.0dip</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_color_default</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+	<style name="content_page_small_text">
+		<item name="android:duplicateParentState">true</item>
+        <item name="android:textSize">12.0dip</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="transparent_theme" parent="@org.droidtv.ui.tvwidget2k15:style/uiComponentsTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+    <style name="input_picker_mychoice_dialog">
+        <item name="android:layout_width" >52dp</item>
+		<item name="android:layout_height">165dp</item>
+    </style>
+
+    <style name="CustomDialog">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+</resources>

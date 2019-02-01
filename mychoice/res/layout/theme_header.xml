@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/channelrowparent"
+    android:layout_width="130dp"
+    android:layout_height="30dp"
+    android:clickable="false"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="130dp"
+        android:layout_height="30dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false" >
+
+        <TextView
+            android:id="@+id/themeNumber"
+            style="@org.droidtv.ui.tvwidget2k15:style/lmr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@org.droidtv.ui.tvwidget2k15:drawable/filterbar_text_background_selector"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:textColor="@color/filterbar_text_selector"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+</LinearLayout>

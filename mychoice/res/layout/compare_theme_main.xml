@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:TopNavigation="http://schemas.android.com/apk/res/org.droidtv.ui.tvwidget2k15"
+    android:id="@+id/ChannelAppRootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!--
+         The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc.
+    -->
+
+
+    <!--
+         This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows.
+    -->
+
+    <org.droidtv.ui.tvwidget2k15.blur.BlurSurfaceView
+        android:id="@+id/compare_blur_full_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout4"
+        android:layout_width="300dp"
+        android:layout_height="46dp"
+        android:layout_below="@+id/topMenuBarLayout"
+        android:gravity="bottom" >
+
+        <CheckedTextView
+            android:id="@+id/checkedTextView1"
+            style="@org.droidtv.ui.tvwidget2k15:style/lmr"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:background="@org.droidtv.ui.tvwidget2k15:drawable/filterbar_text_background_selector"
+            android:checked="true"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/all_channels"
+            android:textColor="@color/filterbar_text_selector" />
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:orientation="vertical" >
+        </LinearLayout>
+	</RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="46dp"
+            android:layout_below="@+id/topMenuBarLayout"
+            android:layout_toRightOf="@+id/relativeLayout4" >
+
+            <org.droidtv.mychoice.CustomHorizontalScrollView
+                android:id="@+id/hsv2"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:clickable="false"
+                android:focusable="false" >
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:clickable="false"
+                    android:focusable="false" >
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout_gridtableLayout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:orientation="horizontal" >
+
+                        <LinearLayout
+                            android:id="@+id/theme1"
+                            android:layout_width="150dp"
+                            android:layout_height="46dp"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:gravity="bottom"
+                            android:orientation="vertical"
+                            android:visibility="gone" >
+
+                            <RelativeLayout
+                                android:layout_width="150dp"
+                                android:layout_height="30dp"
+                                android:clickable="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false" >
+
+                                <TextView
+                                    android:id="@+id/themeNumber1"
+                                    style="@org.droidtv.ui.tvwidget2k15:style/lmr"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@org.droidtv.ui.tvwidget2k15:drawable/filterbar_text_background_selector"
+                                    android:clickable="true"
+                                    android:ellipsize="end"
+                                    android:focusable="true"
+                                    android:gravity="center"
+                                    android:singleLine="true"
+                                    android:textColor="@color/filterbar_text_selector"
+                                    android:textSize="14sp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/theme2"
+                            android:layout_width="150dp"
+                            android:layout_height="46dp"
+                            android:gravity="bottom"
+                            android:orientation="vertical"
+                            android:visibility="gone" >
+
+                            <RelativeLayout
+                                android:layout_width="150dp"
+                                android:layout_height="30dp"
+                                android:clickable="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false" >
+
+                                <TextView
+                                    android:id="@+id/themeNumber2"
+                                    style="@org.droidtv.ui.tvwidget2k15:style/lmr"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@org.droidtv.ui.tvwidget2k15:drawable/filterbar_text_background_selector"
+                                    android:clickable="true"
+                                    android:ellipsize="end"
+                                    android:focusable="true"
+                                    android:gravity="center"
+                                    android:singleLine="true"
+                                    android:textColor="@color/filterbar_text_selector"
+                                    android:textSize="14sp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/theme3"
+                            android:layout_width="150dp"
+                            android:layout_height="46dp"
+                            android:gravity="bottom"
+                            android:orientation="vertical"
+                            android:visibility="gone" >
+
+                            <RelativeLayout
+                                android:layout_width="150dp"
+                                android:layout_height="30dp"
+                                android:clickable="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false" >
+
+                                <TextView
+                                    android:id="@+id/themeNumber3"
+                                    style="@org.droidtv.ui.tvwidget2k15:style/lmr"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@org.droidtv.ui.tvwidget2k15:drawable/filterbar_text_background_selector"
+                                    android:clickable="true"
+                                    android:ellipsize="end"
+                                    android:focusable="true"
+                                    android:gravity="center"
+                                    android:singleLine="true"
+                                    android:textColor="@color/filterbar_text_selector"
+                                    android:textSize="14sp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/theme4"
+                            android:layout_width="150dp"
+                            android:layout_height="46dp"
+                            android:gravity="bottom"
+                            android:orientation="vertical"
+                            android:visibility="gone" >
+
+                            <RelativeLayout
+                                android:layout_width="150dp"
+                                android:layout_height="30dp"
+                                android:clickable="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false" >
+
+                                <TextView
+                                    android:id="@+id/themeNumber4"
+                                    style="@org.droidtv.ui.tvwidget2k15:style/lmr"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@org.droidtv.ui.tvwidget2k15:drawable/filterbar_text_background_selector"
+                                    android:clickable="true"
+                                    android:ellipsize="end"
+                                    android:focusable="true"
+                                    android:gravity="center"
+                                    android:singleLine="true"
+                                    android:textColor="@color/filterbar_text_selector"
+                                    android:textSize="14sp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/theme5"
+                            android:layout_width="150dp"
+                            android:layout_height="46dp"
+                            android:gravity="bottom"
+                            android:orientation="vertical"
+                            android:visibility="gone" >
+
+                            <RelativeLayout
+                                android:layout_width="150dp"
+                                android:layout_height="30dp"
+                                android:clickable="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false" >
+
+                                <TextView
+                                    android:id="@+id/themeNumber5"
+                                    style="@org.droidtv.ui.tvwidget2k15:style/lmr"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@org.droidtv.ui.tvwidget2k15:drawable/filterbar_text_background_selector"
+                                    android:clickable="true"
+                                    android:ellipsize="end"
+                                    android:focusable="true"
+                                    android:gravity="center"
+                                    android:singleLine="true"
+                                    android:textColor="@color/filterbar_text_selector"
+                                    android:textSize="14sp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/theme6"
+                            android:layout_width="150dp"
+                            android:layout_height="46dp"
+                            android:gravity="bottom"
+                            android:orientation="vertical"
+                            android:visibility="gone" >
+
+                            <RelativeLayout
+                                android:layout_width="150dp"
+                                android:layout_height="30dp"
+                                android:clickable="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false" >
+
+                                <TextView
+                                    android:id="@+id/themeNumber6"
+                                    style="@org.droidtv.ui.tvwidget2k15:style/lmr"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@org.droidtv.ui.tvwidget2k15:drawable/filterbar_text_background_selector"
+                                    android:clickable="true"
+                                    android:ellipsize="end"
+                                    android:focusable="true"
+                                    android:gravity="center"
+                                    android:singleLine="true"
+                                    android:textColor="@color/filterbar_text_selector"
+                                    android:textSize="14sp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/theme7"
+                            android:layout_width="150dp"
+                            android:layout_height="46dp"
+                            android:gravity="bottom"
+                            android:orientation="vertical"
+                            android:visibility="gone" >
+
+                            <RelativeLayout
+                                android:layout_width="150dp"
+                                android:layout_height="30dp"
+                                android:clickable="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false" >
+
+                                <TextView
+                                    android:id="@+id/themeNumber7"
+                                    style="@org.droidtv.ui.tvwidget2k15:style/lmr"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@org.droidtv.ui.tvwidget2k15:drawable/filterbar_text_background_selector"
+                                    android:clickable="true"
+                                    android:ellipsize="end"
+                                    android:focusable="true"
+                                    android:gravity="center"
+                                    android:singleLine="true"
+                                    android:textColor="@color/filterbar_text_selector"
+                                    android:textSize="14sp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/theme8"
+                            android:layout_width="150dp"
+                            android:layout_height="46dp"
+                            android:gravity="bottom"
+                            android:orientation="vertical"
+                            android:visibility="gone" >
+
+                            <RelativeLayout
+                                android:layout_width="150dp"
+                                android:layout_height="30dp"
+                                android:clickable="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false" >
+
+                                <TextView
+                                    android:id="@+id/themeNumber8"
+                                    style="@org.droidtv.ui.tvwidget2k15:style/lmr"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@org.droidtv.ui.tvwidget2k15:drawable/filterbar_text_background_selector"
+                                    android:clickable="true"
+                                    android:ellipsize="end"
+                                    android:focusable="true"
+                                    android:gravity="center"
+                                    android:singleLine="true"
+                                    android:textColor="@color/filterbar_text_selector"
+                                    android:textSize="14sp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/theme9"
+                            android:layout_width="150dp"
+                            android:layout_height="46dp"
+                            android:gravity="bottom"
+                            android:orientation="vertical"
+                            android:visibility="gone" >
+
+                            <RelativeLayout
+                                android:layout_width="150dp"
+                                android:layout_height="30dp"
+                                android:clickable="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false" >
+
+                                <TextView
+                                    android:id="@+id/themeNumber9"
+                                    style="@org.droidtv.ui.tvwidget2k15:style/lmr"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@org.droidtv.ui.tvwidget2k15:drawable/filterbar_text_background_selector"
+                                    android:clickable="true"
+                                    android:ellipsize="end"
+                                    android:focusable="true"
+                                    android:gravity="center"
+                                    android:singleLine="true"
+                                    android:textColor="@color/filterbar_text_selector"
+                                    android:textSize="14sp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/theme10"
+                            android:layout_width="150dp"
+                            android:layout_height="46dp"
+                            android:gravity="bottom"
+                            android:orientation="vertical"
+                            android:visibility="gone" >
+
+                            <RelativeLayout
+                                android:layout_width="150dp"
+                                android:layout_height="30dp"
+                                android:clickable="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false" >
+
+                                <TextView
+                                    android:id="@+id/themeNumber10"
+                                    style="@org.droidtv.ui.tvwidget2k15:style/lmr"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@org.droidtv.ui.tvwidget2k15:drawable/filterbar_text_background_selector"
+                                    android:clickable="true"
+                                    android:ellipsize="end"
+                                    android:focusable="true"
+                                    android:gravity="center"
+                                    android:singleLine="true"
+                                    android:textColor="@color/filterbar_text_selector"
+                                    android:textSize="14sp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </FrameLayout>
+            </org.droidtv.mychoice.CustomHorizontalScrollView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="368dp"
+            android:layout_below="@+id/relativeLayout4"
+            android:layout_toRightOf="@+id/relativeLayout4" >
+
+            <org.droidtv.mychoice.CustomHorizontalScrollView
+                android:id="@+id/hsv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true" >
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent" >
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout_gridtableLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" >
+
+                        <org.droidtv.mychoice.CustomGridView
+                            android:id="@+id/gridView3"
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentStart="true"
+                            android:columnWidth="150dp"
+                            android:horizontalSpacing="0dp"
+                            android:nextFocusLeft="@+id/gridView2"
+                            android:nextFocusRight="@null"
+                            android:nextFocusUp="@+id/gridView"
+                            android:scrollbars="none"
+                            android:stretchMode="columnWidth"
+                            android:verticalSpacing="0dp" />
+                    </LinearLayout>
+                </FrameLayout>
+            </org.droidtv.mychoice.CustomHorizontalScrollView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="368dp"
+            android:layout_below="@+id/relativeLayout4" >
+
+            <org.droidtv.mychoice.CustomListView
+                android:id="@+id/gridView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:nextFocusRight="@+id/gridView3"
+                android:scrollbars="none" />
+        </RelativeLayout>
+
+        <org.droidtv.ui.tvwidget2k15.TopNavigationBar
+            android:id="@+id/topMenuBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="0dp"
+            android:gravity="bottom"
+            android:paddingLeft="0dp"
+            android:visibility="visible" >
+
+            <org.droidtv.ui.tvwidget2k15.TopNavigationBarItem
+                android:id="@+id/satellite"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                TopNavigation:itemDescription=""
+                TopNavigation:itemIcon="@org.droidtv.ui.tvwidget2k15:drawable/channels_grid_16x12_155"
+                TopNavigation:itemId="1" />
+        </org.droidtv.ui.tvwidget2k15.TopNavigationBar>
+
+        <org.droidtv.ui.tvwidget2k15.ColorKeys
+            android:id="@+id/colorKeys"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" >
+        </org.droidtv.ui.tvwidget2k15.ColorKeys>
+</RelativeLayout>
+   

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@org.droidtv.ui.tvwidget2k15:drawable/tvguide_hl_ico_16x12_90" android:state_focused="true"></item>
+    <item android:drawable="@drawable/icon_100_199_d_140723_149_guide_3" android:state_checked="true"></item>
+    <item android:drawable="@org.droidtv.ui.tvwidget2k15:drawable/tvguide_n_ico_16x12_90"></item>
+
+</selector>

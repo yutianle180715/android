@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:customAttrs="http://schemas.android.com/apk/res/org.droidtv.mychoice">
+    <item android:state_focused="true" android:color="#76D7D6"/>
+    <item android:state_selected="true" android:color="#76D7D6"/>
+    <item android:state_pressed="true" android:color="#76D7D6"/>
+    <item customAttrs:state_selected_guide="true" android:color="@android:color/white"/>
+    <item customAttrs:state_selected_guide="false" android:color="#70FFFFFF"/>
+    <item android:color="#70FFFFFF"/>
+</selector>

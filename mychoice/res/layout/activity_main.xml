@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:TopNavigation="http://schemas.android.com/apk/res/org.droidtv.ui.tvwidget2k15"
+    android:id="@+id/ChannelAppRootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="0dp"
+    android:clipChildren="false"
+    android:clipToPadding="false" >
+
+    <!--
+         The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc.
+
+    -->
+
+
+    <!--
+         This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows.
+
+
+    -->
+
+    <org.droidtv.ui.tvwidget2k15.blur.BlurSurfaceView
+        android:id="@+id/blur_full_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="54dp"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/relatvielayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/relatvielayout2" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="130dp"
+                    android:layout_height="30dp"
+                    android:orientation="vertical" >
+
+                    <CheckedTextView
+                        android:id="@+id/checkedTextView1"
+                        style="@org.droidtv.ui.tvwidget2k15:style/lmr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@org.droidtv.ui.tvwidget2k15:drawable/filterbar_text_background_selector"
+                        android:checked="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:nextFocusDown="@+id/gridView2"
+                        android:text="@string/all_channels"
+                        android:textColor="@color/filterbar_text_selector" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="130dp"
+                    android:layout_height="30dp"
+                    android:orientation="vertical" >
+
+                    <CheckedTextView
+                        android:id="@+id/checkedTextView2"
+                        style="@org.droidtv.ui.tvwidget2k15:style/lmr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@org.droidtv.ui.tvwidget2k15:drawable/filterbar_text_background_selector"
+                        android:drawableLeft="@drawable/ic_add_circle_white_18dp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:nextFocusDown="@+id/gridView2"
+                        android:text="@string/new_theme"
+			android:visibility="invisible"
+                        android:textColor="@color/filterbar_text_selector" />
+                </LinearLayout>
+
+                <org.droidtv.mychoice.CustomHorizontalScrollView
+                    android:id="@+id/hsv2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent" >
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent" >
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout_gridtableLayout2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal" >
+
+                            <GridView
+                                android:id="@+id/gridView"
+                                android:layout_width="fill_parent"
+                                android:layout_height="30dp"
+                                android:columnWidth="130dp"
+                                android:descendantFocusability="blocksDescendants"
+                                android:gravity="left"
+                                android:horizontalSpacing="0dp"
+                                android:nextFocusDown="@+id/gridView3"
+                                android:nextFocusLeft="@+id/checkedTextView2"
+                                android:scrollbars="none"
+                                android:stretchMode="columnWidth"
+                                android:verticalSpacing="0dp" />
+                        </LinearLayout>
+                    </FrameLayout>
+                </org.droidtv.mychoice.CustomHorizontalScrollView>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relatvielayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/relatvielayout1" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+                <org.droidtv.mychoice.CustomGridView
+                    android:id="@+id/gridView2"
+                    android:layout_width="260dp"
+                    android:layout_height="460dp"
+                    android:nextFocusRight="@+id/gridView3"
+                    android:nextFocusUp="@+id/gridView"
+                    android:scrollbars="none" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical" >
+
+                    <org.droidtv.mychoice.CustomHorizontalScrollView
+                        android:id="@+id/hsv"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent" >
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent" >
+
+                            <LinearLayout
+                                android:id="@+id/linearLayout_gridtableLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal" >
+
+                                <org.droidtv.mychoice.CustomGridView
+                                    android:id="@+id/gridView3"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="460dp"
+                                    android:layout_gravity="left"
+                                    android:clickable="false"
+                                    android:columnWidth="130dp"
+                                    android:descendantFocusability="blocksDescendants"
+                                    android:horizontalSpacing="0dp"
+                                    android:nextFocusLeft="@+id/gridView2"
+                                    android:nextFocusUp="@+id/gridView"
+                                    android:scrollbars="none"
+                                    android:stretchMode="columnWidth"
+                                    android:verticalSpacing="0dp" />
+                            </LinearLayout>
+                        </FrameLayout>
+                    </org.droidtv.mychoice.CustomHorizontalScrollView>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <org.droidtv.ui.tvwidget2k15.TopNavigationBar
+        android:id="@+id/topMenuBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="0dp"
+        android:gravity="bottom"
+        android:paddingLeft="0dp"
+        android:visibility="visible" >
+
+        <org.droidtv.ui.tvwidget2k15.TopNavigationBarItem
+            android:id="@+id/satellite"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            TopNavigation:itemDescription=""
+            TopNavigation:itemIcon="@org.droidtv.ui.tvwidget2k15:drawable/channels_grid_16x12_155"
+            TopNavigation:itemId="1" />
+    </org.droidtv.ui.tvwidget2k15.TopNavigationBar>
+
+</RelativeLayout>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/htv_mychoice_pin_entry"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CC000000"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/image_icon_mychoice_n_36x36"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="17dp"
+        android:src="@drawable/icon_mychoice_n_36x36" />
+
+    <TextView
+        android:id="@+id/title_top"
+        android:layout_width="120dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="71dp"
+        android:layout_marginTop="20dp"
+        android:text="@org.droidtv.ui.strings:string/HTV_MAIN_MYCHOICE"
+        android:textColor="#FFFFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="145dp"
+        android:layout_marginStart="145dp"
+        android:layout_marginTop="71dp"
+        android:text="@org.droidtv.ui.strings:string/HTV_MYCHOICE_DESCRIPTION1"
+        android:textColor="#FFFFFFFF"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/title_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="145dp"
+        android:layout_marginStart="145dp"
+        android:layout_below="@+id/title"
+        android:text="@org.droidtv.ui.strings:string/HTV_MYCHOICE_DESCRIPTION2"
+        android:textColor="#FFFFFFFF"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:divider="@drawable/spacer_input_picker"
+        android:showDividers="middle"
+        android:layout_marginEnd="274dp"
+        android:layout_marginStart="274dp"
+        android:layout_marginTop="150dp" >
+
+        <org.droidtv.ui.tvwidget2k15.inputPicker.InputPicker
+            android:id="@+id/inputpicker00"
+            style="@org.droidtv.ui.tvwidget2k15:style/inputPickerStyle"
+            android:layout_width="52dp"
+            android:layout_height="165dp"
+            />
+
+        <org.droidtv.ui.tvwidget2k15.inputPicker.InputPicker
+            android:id="@+id/inputpicker01"
+            style="@org.droidtv.ui.tvwidget2k15:style/inputPickerStyle"
+            android:layout_width="52dp"
+            android:layout_height="165dp"
+            />
+
+        <org.droidtv.ui.tvwidget2k15.inputPicker.InputPicker
+            android:id="@+id/inputpicker02"
+            style="@org.droidtv.ui.tvwidget2k15:style/inputPickerStyle"
+            android:layout_width="52dp"
+            android:layout_height="165dp"
+            />
+
+        <org.droidtv.ui.tvwidget2k15.inputPicker.InputPicker
+            android:id="@+id/inputpicker03"
+            style="@org.droidtv.ui.tvwidget2k15:style/inputPickerStyle"
+            android:layout_width="52dp"
+            android:layout_height="165dp"
+            />
+
+        <org.droidtv.ui.tvwidget2k15.inputPicker.InputPicker
+            android:id="@+id/inputpicker04"
+            style="@org.droidtv.ui.tvwidget2k15:style/inputPickerStyle"
+            android:layout_width="52dp"
+            android:layout_height="165dp"
+            />
+
+        <org.droidtv.ui.tvwidget2k15.inputPicker.InputPicker
+            android:id="@+id/inputpicker05"
+            style="@org.droidtv.ui.tvwidget2k15:style/inputPickerStyle"
+            android:layout_width="52dp"
+            android:layout_height="165dp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/title_remaining_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:layout_marginRight="200dp"
+        android:layout_marginTop="363dp"
+        android:gravity="center_vertical"
+        android:textColor="#FFFFFFFF"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/title_wrong_pin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:layout_marginRight="200dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/title_remaining_time"
+        android:background="@drawable/mychoice_tvid"
+        android:gravity="center_vertical"
+        android:textColor="#FF0000"
+        android:textSize="16sp"
+        android:visibility="visible" />
+
+<!--     <Button
+        android:id="@+id/mychoice_pin_entry_fail_ok_button"
+        style="@org.droidtv.ui.tvwidget2k15:style/button_style"
+        android:layout_width="160dp"
+        android:layout_height="36dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="30dp"
+        android:text="@org.droidtv.ui.strings:string/MAIN_BUTTON_OK"
+        android:visibility="gone" /> -->
+
+    <Button
+        android:id="@+id/mychoice_pin_entry_cancel_button"
+        style="@org.droidtv.ui.tvwidget2k15:style/button_style"
+        android:layout_width="160dp"
+        android:layout_height="36dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="30dp"
+        android:text="@org.droidtv.ui.strings:string/MAIN_CANCEL" />
+
+    <Button
+        android:id="@+id/mychoice_pin_entry_ok_button"
+        style="@org.droidtv.ui.tvwidget2k15:style/button_style"
+        android:layout_width="160dp"
+        android:layout_height="36dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="30dp"
+        android:text="@org.droidtv.ui.strings:string/MAIN_BUTTON_OK" />
+
+</RelativeLayout>
