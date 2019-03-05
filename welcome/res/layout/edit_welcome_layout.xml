@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.droidtv.welcome.configsettings.ui.OptionsNode
+    android:id="@+id/edit_dashboard_menu"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:tag="Welcome Configuration">
+    
+    <org.droidtv.welcome.configsettings.ui.OptionsNode
+        android:id="@+id/configure_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tag="Configure" >
+
+        <org.droidtv.welcome.configsettings.ui.ListOptionsNode
+            android:id="@+id/premises_name_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            data="@array/common_list_data"
+            data_id="@array/common_list_data_id"
+            android:tag="Premises Name" >
+        </org.droidtv.welcome.configsettings.ui.ListOptionsNode>
+
+        <org.droidtv.welcome.configsettings.ui.ListOptionsNode
+            android:id="@+id/guest_name_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            data="@array/common_list_data"
+            data_id="@array/common_list_data_id"
+            android:tag="Guest Name" >
+        </org.droidtv.welcome.configsettings.ui.ListOptionsNode>
+
+        <org.droidtv.welcome.configsettings.ui.ListOptionsNode
+            android:id="@+id/welcome_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            data="@array/common_list_data"
+            data_id="@array/common_list_data_id"
+            android:tag="Welcome" >
+        </org.droidtv.welcome.configsettings.ui.ListOptionsNode>
+
+        <org.droidtv.welcome.configsettings.ui.ListOptionsNode
+            android:id="@+id/date_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            data="@array/common_list_data"
+            data_id="@array/common_list_data_id"
+            android:tag="Date" >
+        </org.droidtv.welcome.configsettings.ui.ListOptionsNode>
+
+        <org.droidtv.welcome.configsettings.ui.ListOptionsNode
+            android:id="@+id/time_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            data="@array/common_list_data"
+            data_id="@array/common_list_data_id"
+            android:tag="Time" >
+        </org.droidtv.welcome.configsettings.ui.ListOptionsNode>
+
+        <org.droidtv.welcome.configsettings.ui.ListOptionsNode
+            android:id="@+id/weather_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            data="@array/common_list_data"
+            data_id="@array/common_list_data_id"
+            android:tag="Weather" >
+        </org.droidtv.welcome.configsettings.ui.ListOptionsNode>
+
+    </org.droidtv.welcome.configsettings.ui.OptionsNode>
+
+    <org.droidtv.welcome.configsettings.ui.OptionsNode
+        android:id="@+id/set_background_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tag="Set Background" >
+        <org.droidtv.welcome.configsettings.ui.ListOptionsNode
+            android:id="@+id/use_philips_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            data="@array/play_list_data"
+            data_id="@array/play_list_data_id"
+            android:tag="Philips default" >
+        </org.droidtv.welcome.configsettings.ui.ListOptionsNode>
+
+     <!-- <org.droidtv.welcome.configsettings.ui.OptionsNode
+            android:id="@+id/set_custom_background_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="Custom Background" >
+        </org.droidtv.welcome.configsettings.ui.OptionsNode> -->   
+
+    </org.droidtv.welcome.configsettings.ui.OptionsNode>
+    
+   <!--  <org.droidtv.welcome.configsettings.ui.ListOptionsNode
+        android:id="@+id/show_account_icon_setting"
+        data="@array/account_list_data"
+        data_id="@array/account_list_data_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tag="Show Account Icon">
+
+    </org.droidtv.welcome.configsettings.ui.ListOptionsNode>
+
+    <org.droidtv.welcome.configsettings.ui.OptionsNode
+        android:id="@+id/recommended_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tag="Recommended">
+
+        <org.droidtv.welcome.configsettings.ui.OptionsNode
+            android:id="@+id/recommended_apps"
+            actionable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="Select Apps">
+            
+        </org.droidtv.welcome.configsettings.ui.OptionsNode>
+
+        <org.droidtv.welcome.configsettings.ui.OptionsNode
+            android:id="@+id/app_recommendations"
+            actionable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="Select App channels">
+        </org.droidtv.welcome.configsettings.ui.OptionsNode>
+    </org.droidtv.welcome.configsettings.ui.OptionsNode>
+
+    <org.droidtv.welcome.configsettings.ui.OptionsNode
+        android:id="@+id/user_interface"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tag="User Interface Setting">
+
+        <org.droidtv.welcome.configsettings.ui.OptionsNode
+            android:id="@+id/user_interface_back_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="Background Panel">
+
+            <org.droidtv.welcome.configsettings.ui.ListOptionsNode
+                android:id="@+id/user_interface_main_background_enabled_setting"
+                data="@array/main_background_enabled_setting_data"
+                data_id="@array/main_background_enabled_setting_data_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tag="Enable">
+            </org.droidtv.welcome.configsettings.ui.ListOptionsNode>
+
+        </org.droidtv.welcome.configsettings.ui.OptionsNode>
+
+        <org.droidtv.welcome.configsettings.ui.OptionsNode
+            android:id="@+id/user_interface_side_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="Side Panel">
+
+            <org.droidtv.welcome.configsettings.ui.SidePanelBackgroundColorNode
+                android:id="@+id/side_panel_background_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tag="Background Color"></org.droidtv.welcome.configsettings.ui.SidePanelBackgroundColorNode>
+
+            <org.droidtv.welcome.configsettings.ui.SidePanelHighlightedTextColorNode
+                android:id="@+id/side_panel_highlighted_text_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tag="Highlighted Text Color"/>
+
+            <org.droidtv.welcome.configsettings.ui.SidePanelNonHighlightedTextColorNode
+                android:id="@+id/side_panel_non_highlighted_text_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tag="Non Highlighted Text Color"/>
+
+        </org.droidtv.welcome.configsettings.ui.OptionsNode>
+
+        <org.droidtv.welcome.configsettings.ui.OptionsNode
+            android:id="@+id/revert_session_changes"
+            actionable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="@string/edit_launcher_revert_session_changes"></org.droidtv.welcome.configsettings.ui.OptionsNode>
+
+        <org.droidtv.welcome.configsettings.ui.OptionsNode
+            android:id="@+id/reset_settings"
+            actionable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="@string/edit_launcher_reset"></org.droidtv.welcome.configsettings.ui.OptionsNode>
+
+    </org.droidtv.welcome.configsettings.ui.OptionsNode> -->
+
+</org.droidtv.welcome.configsettings.ui.OptionsNode>

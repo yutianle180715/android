@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF1E1F21"
+    android:padding="10dp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/my_dream_setting_label"
+        android:textColor="@android:color/holo_blue_light"
+        android:textSize="30sp"
+        android:paddingBottom="10dp"
+        android:gravity="start" />
+
+    <CheckedTextView
+        android:id="@+id/ln_ctv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+        android:focusable="true"
+        android:clickable="true"
+        android:text="@string/location_name_label"
+        android:textSize="20sp" />
+
+    <CheckedTextView
+        android:id="@+id/gn_ctv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+        android:focusable="true"
+        android:clickable="true"
+        android:text="@string/guest_name_label"
+        android:textSize="20sp" />
+
+</LinearLayout>

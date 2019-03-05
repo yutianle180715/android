@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+    <string name="app_name">PhilipsWelcomeScreen</string>
+    <string name="my_dream_label">PhilipsWelcomeScreen</string>
+    <string name="my_dream_setting_label">Welcome Setting</string>
+    <string name="hotel_info">Radisson Montevideo Victoria Plaza Hotel</string>
+    <string name="guest_info">Mr Joseph Andersson</string>
+    <string name="welcome">Welcome</string>
+    <string name="message_info">Warmly greeted and welcome in the Radisson Montevideo Victoria Plaza Hotel.The hotel management and staff wishes to congratulate you on your 75th anniversary.\n
+To celebrate this event, we offer you a bottle of our finest champagne. Please dial 0 on your phone when you wish to receive it.\n\n</string>
+    <string name="location_name_label">Location Name</string>
+    <string name="guest_name_label">Guest Name</string>
+    <string name="time">12:22</string>
+    <string name="time_lable">HHHH</string>
+    <string name="date">Monday,December 26</string>
+    <string name="temperature">199°</string>
+    <string name="message_title">Welcome Mr Joseph Andersson to Radisson Montevideo Victoria Plaza Hotel </string>
+    <string name="message_signature">John Smith,Hotel Manager</string>
+    
+    <!-- thumbnail browser -->
+    <string name="thumbnail_browser_default_image_name">Default</string>
+    <string name="edit_launcher_on">On</string>
+    <string name="edit_launcher_off">Off</string>
+    <string name="edit_launcher_revert_session_changes">Revert Session Changes</string>
+    <string name="edit_launcher_reset">Reset</string>
+    <string name="play_source_0">slideshow</string>
+    <string name="play_source_1">video1</string>
+    <string name="play_source_2">video2</string>
+</resources>

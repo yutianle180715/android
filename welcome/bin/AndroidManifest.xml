@@ -1,0 +1,94 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.droidtv.welcome"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <uses-sdk
+        android:minSdkVersion="21"
+        android:targetSdkVersion="24" />
+
+    <application
+        android:name=".WelcomeApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/WelcomeTheme" >
+        <service
+            android:name=".WelcomeDreamService"
+            android:exported="true"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/my_dream_label"
+            android:permission="android.permission.BIND_DREAM_SERVICE">
+	        <intent-filter>
+				<action android:name="android.service.dreams.DreamService" />
+				<category android:name="android.intent.category.DEFAULT" />
+		    </intent-filter>
+
+        <!--  <meta-data
+                android:name="android.service.dream"
+                android:resource="@xml/htvwelcom_dream" /> -->
+        </service>
+
+        <activity
+            android:name=".WelcomeDreamSettings"
+            android:exported="true"
+            android:theme="@style/epgTransparentTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".WelcomeConfigurationActivity"
+            android:exported="true"
+            android:theme="@style/epgTransparentTheme" >
+            <intent-filter>
+                <action android:name="org.droidtv.intent.action.welcome.config"/>
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".WelcomeReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="org.droidtv.intent.action.clone.state.started" />
+                <action android:name="org.droidtv.intent.action.clone.state.stopped" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".WelcomeCloneService"
+            android:persistent = "true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="org.droidtv.welcome.WELCOMECLONESERVICE" />
+            </intent-filter>
+        </service>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="org.droidtv.welcome.clonedataprovider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/clone_data_file_path" />
+        </provider>
+
+        <provider
+            android:name="org.droidtv.welcome.database.WelcomeProvider"
+            android:authorities="org.droidtv.htv.philipswelcome"
+            android:directBootAware="true"
+            android:exported="true" >
+        </provider>
+</application>
+
+</manifest>

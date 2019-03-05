@@ -1,0 +1,7 @@
+-dontoptimize
+-keep public class org.droidtv.welcome.HtvWelcome {
+*;
+}
+
+
+
