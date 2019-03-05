@@ -10,3 +10,4 @@ privary key: name
     android:directBootAware="true"
     android:exported="true" >
 </provider>
+
